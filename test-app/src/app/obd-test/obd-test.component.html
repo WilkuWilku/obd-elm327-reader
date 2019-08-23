@@ -1,0 +1,8 @@
+<StackLayout>
+  <Label text="Aktualne obroty" class="rev-label text-center"></Label>
+<!--  <Label text="{{ revs }}" class="rev-value text-center"></Label>-->
+  <Label text="respData: {{revs.respData}}" class="rev-value text-center"></Label>
+  <Label text="readNum: {{revs.readNum}}" class="rev-value text-center"></Label>
+  <Label text="respValue: {{revs.respValue}}" class="rev-value text-center"></Label>
+  <Button text="Odśwież" (click)="getRevs()"></Button>
+</StackLayout>

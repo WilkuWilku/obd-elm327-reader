@@ -1,0 +1,17 @@
+<StackLayout>
+  <Button text="Wyszukaj urządzenia" (tap)="searchDevices()"></Button>
+<!--  <GridLayout>-->
+  <ListView #devicesListView [items]="devices">
+    <ng-template let-item="item">
+      <Label (tap)="selectDevice(item)" text="{{item.getAddress()}} [{{item.getName()}}]" class="device-row"
+             [ngClass]="{selected: item == selectedDevice, connected: item == connectedDevice}"></Label>
+    </ng-template>
+  </ListView>
+<!--  </GridLayout>-->
+
+<!--  <Label *ngFor="let device of devices" (click)="selectedDevice = device" text="{{device.getName()}}" class="device-row"></Label>-->
+
+  <Button text="Połącz" (tap)="connectToSelectedDevice()"></Button>
+  <Label text="Połączono z urządzeniem: {{bluetoothNativeConnectionService.connectedDevice?.getName()}}"></Label>
+  <Button text="Odczytaj obroty" [nsRouterLink]="['/obd']"></Button>
+</StackLayout>
