@@ -62,17 +62,31 @@ export class BluetoothNativeConnectionService {
   }
 
   sendMessage(message: string){
-        console.log("*** sending message: "+message);
-        this.outputStream.write((message + "\r" as unknown as java.lang.String).getBytes());
-        this.outputStream.flush();
+        try {
+            console.log("*** sending message: " + message);
+            let javaMessage: java.lang.String = new java.lang.String(message + '\r');
+            console.log("*** casting to java String");
+            this.outputStream.write(javaMessage.getBytes());
+            console.log("*** outputstream write java String bytes");
+            this.outputStream.flush();
+            console.log("*** outputstream flush");
+        }catch (e) {
+            Toast.makeText(applicationModule.android.foregroundActivity, "ERROR: "+e, Toast.LENGTH_SHORT).show();
+        }
   }
 
   readMessage(bytesNum: number){
-        console.log("*** reading message");
-        let bytes: Array<number> = [];
-        let readNum: number = this.inputStream.read(bytes);
-        console.log("*** read "+ readNum +" bytes");
-        return [readNum, bytes];
+        try {
+            console.log("*** reading message");
+            let bytes: Array<any> = new Array<any>(bytesNum);
+            console.log("*** available: "+this.inputStream.available());
+            let readNum: number = this.inputStream.read(bytes);
+            console.log("** response: " + bytes);
+            console.log("*** read " + readNum + " bytes");
+            return [readNum, bytes];
+        }catch (e) {
+            Toast.makeText(applicationModule.android.foregroundActivity, "ERROR: "+e, Toast.LENGTH_SHORT).show();
+        }
   }
 
   closeAll(){

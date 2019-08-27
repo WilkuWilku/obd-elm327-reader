@@ -23,7 +23,7 @@ export class ResponseData{
         this.readNum = readNum;
         this.respValue = respValue;
     }
-    public respData: Array<number>;
+    public respData: Array<any>;
     public readNum: number;
     public respValue: number;
 }
