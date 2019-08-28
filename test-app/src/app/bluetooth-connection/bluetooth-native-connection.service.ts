@@ -7,6 +7,7 @@ import InputStream = java.io.InputStream;
 import OutputStream = java.io.OutputStream;
 import UUID = java.util.UUID;
 import * as applicationModule from "tns-core-modules/application";
+import Toast = android.widget.Toast;
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,7 @@ export class BluetoothNativeConnectionService {
             console.log("*** outputstream write java String bytes");
             this.outputStream.flush();
             console.log("*** outputstream flush");
-        }catch (e) {
+        } catch (e) {
             Toast.makeText(applicationModule.android.foregroundActivity, "ERROR: "+e, Toast.LENGTH_SHORT).show();
         }
   }
@@ -78,13 +79,13 @@ export class BluetoothNativeConnectionService {
   readMessage(bytesNum: number){
         try {
             console.log("*** reading message");
-            let bytes: Array<any> = new Array<any>(bytesNum);
+            let bytes: Array<number> = new Array<number>(this.BUFFER_SIZE);
             console.log("*** available: "+this.inputStream.available());
             let readNum: number = this.inputStream.read(bytes);
             console.log("** response: " + bytes);
             console.log("*** read " + readNum + " bytes");
-            return [readNum, bytes];
-        }catch (e) {
+            return new ReadData(readNum, bytes);
+        } catch (e) {
             Toast.makeText(applicationModule.android.foregroundActivity, "ERROR: "+e, Toast.LENGTH_SHORT).show();
         }
   }
@@ -101,6 +102,12 @@ export class BluetoothNativeConnectionService {
         }
   }
 
-
-
+}
+export class ReadData{
+    constructor(readNum, bytes) {
+        this.readNum = readNum;
+        this.bytes = bytes;
+    }
+    public readNum: number;
+    public bytes: Array<number>;
 }
