@@ -16,17 +16,20 @@ export class ObdTestService {
         let bytes: Array<number> = response.bytes;
         let readNum: number = response.readNum;
         let value = (256*bytes[0]+bytes[1])/4;
-        return new ResponseData(bytes, readNum, value);
+        let val = response.val;
+        return new ResponseData(bytes, readNum, value, val);
     }
 }
 
 export class ResponseData{
-    constructor(respData, readNum, respValue){
+    constructor(respData, readNum, respValue, val){
         this.respData = respData;
         this.readNum = readNum;
         this.respValue = respValue;
+        this.val = val;
     }
     public respData: Array<number>;
     public readNum: number;
     public respValue: number;
+    public val: string;
 }

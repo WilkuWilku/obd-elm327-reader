@@ -1,0 +1,18 @@
+<StackLayout>
+  <Label class="title" text="Command:"></Label>
+  <TextField (textChange)="updateCommand($event)"></TextField>
+
+  <Label class="title" text="Command sent:"></Label>
+  <Label class="value" text="{{command}}"></Label>
+
+  <Label class="title" text="Response array:"></Label>
+  <Label class="value" text="{{responseArray}}"></Label>
+
+  <Label class="title" text="Response string"></Label>
+  <Label class="value" text="{{responseString}}"></Label>
+
+  <Button (tap)="sendCommand()" text="Send command x"></Button>
+  <Button (tap)="sendCommand2()" text="Send command2 UTF-8"></Button>
+  <Button (tap)="readResponse()" text="Read response Array<number>"></Button>
+  <Button (tap)="readResponse2()" text="Read response2 create"></Button>
+</StackLayout>
