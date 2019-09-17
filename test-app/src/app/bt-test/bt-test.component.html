@@ -11,8 +11,12 @@
   <Label class="title" text="Response string"></Label>
   <Label class="value" text="{{responseString}}"></Label>
 
-  <Button (tap)="sendCommand()" text="Send command x"></Button>
-  <Button (tap)="sendCommand2()" text="Send command2 UTF-8"></Button>
-  <Button (tap)="readResponse()" text="Read response Array<number>"></Button>
-  <Button (tap)="readResponse2()" text="Read response2 create"></Button>
+  <Label text="Available value" class="rev-title text-center"></Label>
+  <Label text="{{available}}" class="rev-value"></Label>
+
+  <Label text="Calculated" class="rev-title text-center"></Label>
+  <Label text="{{value}}" textWrap="true" class="rev-value"></Label>
+
+  <Button (tap)="sendCommand()" text="Send command"></Button>
+  <Button (tap)="readResponse()" text="Read response"></Button>
 </StackLayout>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'ns-test-view',
@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestViewComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

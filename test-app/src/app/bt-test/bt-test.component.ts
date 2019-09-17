@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { TextField } from "tns-core-modules/ui/text-field";
+import {Component, OnInit} from '@angular/core';
+import {TextField} from "tns-core-modules/ui/text-field";
 import {
-    BluetoothNativeConnectionService,
-    ReadData
+  BluetoothNativeConnectionService,
+  ResponseData
 } from "~/app/bluetooth-connection/bluetooth-native-connection.service";
+import {ResponseParserService} from "~/app/bluetooth-connection/response-parser.service";
+import {commands} from "~/app/commands/commands";
 
 @Component({
   selector: 'ns-bt-test',
@@ -12,40 +14,37 @@ import {
 })
 export class BtTestComponent implements OnInit {
 
-    private command: string;
-    private responseArray: Array<number>;
-    private responseString: string;
-    private exceptionText: string;
+  private command: string;
+  private responseArray: string;
+  private responseString: string;
+  private available: number;
+  private value: string;
 
-    constructor(private bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
+  constructor(private bluetoothNativeConnectionService: BluetoothNativeConnectionService, private responseParserService: ResponseParserService) {
+  }
+
+  ngOnInit() {
+  }
+
+  updateCommand(args) {
+    let textField = args.object as TextField;
+    this.command = textField.text;
+  }
+
+  sendCommand() {
+    //console.log("*** BT test send");
+    this.bluetoothNativeConnectionService.sendMessage(commands.engineRevs.commandCode);
+  }
+
+  readResponse() {
+    //console.log("*** BT test read");
+    let resp: ResponseData = this.bluetoothNativeConnectionService.readMessage();
+    this.responseArray = "";
+    for(let b of resp.bytesArray){
+      this.responseArray += " "+(b ? b.toString() : "x");
     }
-
-    ngOnInit() {
-    }
-
-    updateCommand(args){
-        let textField = args.object as TextField;
-        this.command = textField.text;
-    }
-
-    sendCommand(){
-        this.bluetoothNativeConnectionService.sendMessage(this.command);
-    }
-
-    sendCommand2(){
-        this.bluetoothNativeConnectionService.sendMessage2(this.command);
-    }
-
-    readResponse(){
-        let resp: ReadData = this.bluetoothNativeConnectionService.readMessage(null);
-        this.responseArray = resp.bytes;
-        this.responseString = resp.val.toString();
-    }
-
-    readResponse2(){
-        let resp: ReadData = this.bluetoothNativeConnectionService.readMessage2(null);
-        this.responseArray = resp.bytes;
-        this.responseString = resp.val.toString();
-    }
-
+    this.responseString = resp.responseString;
+    this.available = resp.available;
+    this.value = this.responseParserService.parse(this.responseString, commands.engineRevs)
+  }
 }
