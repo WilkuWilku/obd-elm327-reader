@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ObdTestService} from "~/app/obd-test/obd-test.service";
-import {ResponseParserService} from "~/app/bluetooth-connection/response-parser.service";
 
 @Component({
   selector: 'ns-obd-test',
@@ -9,8 +8,9 @@ import {ResponseParserService} from "~/app/bluetooth-connection/response-parser.
   moduleId: module.id,
 })
 export class ObdTestComponent implements OnInit, OnDestroy {
-  private revs: string;
+  private revs: string = "0";
   private value: string;
+  private interval;
 
   constructor(private obdTestService: ObdTestService) {
   }
@@ -23,16 +23,20 @@ export class ObdTestComponent implements OnInit, OnDestroy {
 
   getRevs() {
     console.log("*** obd test getRevs()");
-    setInterval(() => {
+    this.interval = setInterval(() => {
       let revs = this.obdTestService.getRevs();
       if(!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")){
         this.revs = revs;
       }
-    }, 200);
+    }, 700);
+  }
+
+  stopRevs(){
+    clearInterval(this.interval);
   }
 
   ngOnDestroy() {
-    clearInterval();
+    clearInterval(this.interval);
   }
 
 }

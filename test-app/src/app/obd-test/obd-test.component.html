@@ -2,8 +2,9 @@
   <Label text="Aktualne obroty" class="rev-label text-center"></Label>
 <!--  <Label text="{{ revs }}" class="rev-value text-center"></Label>-->
 
-  <Label text="Calculated" class="rev-title text-center"></Label>
+<!--  <Label text="Calculated" class="rev-title text-center"></Label>-->
   <Label text="{{revs}}" textWrap="true" class="rev-value text-center"></Label>
 
-  <Button text="Odśwież" (tap)="getRevs()"></Button>
+  <Button text="Start" class="button-start" (tap)="getRevs()"></Button>
+  <Button text="Stop" class="button-stop" (tap)="stopRevs()"></Button>
 </StackLayout>

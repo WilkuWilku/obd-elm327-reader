@@ -16,7 +16,7 @@ export class ObdTestService {
         let command = commands.engineRevs;
         this.bluetoothNativeConnectionService.sendMessage(command.commandCode);
         let response: ResponseData = this.bluetoothNativeConnectionService.readMessage();
-        return this.responseParserService.parse(response.responseString, command);
+        return this.responseParserService.parse(response.responseString, command) + " " + command.unitString;
     }
 }
 
