@@ -33,7 +33,7 @@ export class BtTestComponent implements OnInit {
 
   sendCommand() {
     //console.log("*** BT test send");
-    this.bluetoothNativeConnectionService.sendMessage(commands.engineRevs.commandCode);
+    this.bluetoothNativeConnectionService.sendMessage(this.command);
   }
 
   readResponse() {

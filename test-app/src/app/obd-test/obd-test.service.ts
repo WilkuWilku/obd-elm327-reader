@@ -19,14 +19,3 @@ export class ObdTestService {
         return this.responseParserService.parse(response.responseString, command) + " " + command.unitString;
     }
 }
-
-// export class ResponseData{
-//     constructor(readData, respValue, respArray){
-//         this.readData = readData;
-//         this.respValue = respValue;
-//         this.respArray = respArray;
-//     }
-//     public readData: ResponseData;
-//     public respValue: number;
-//     public respArray: string;
-// }

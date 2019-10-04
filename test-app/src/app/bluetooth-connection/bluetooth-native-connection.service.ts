@@ -83,14 +83,12 @@ export class BluetoothNativeConnectionService {
       console.log("*** reading message");
       let bytesArray = Array.create("byte", this.BUFFER_SIZE);
       let available = this.inputStream.available();
-      //console.log("*** available: " + available);
       let bytesCount: number = this.inputStream.read(bytesArray);
       let bytesArrayLog: string = "";
       for(let b of bytesArray){
         bytesArrayLog += " "+(b ? b.toString() : "x");
       }
       console.log("*** response data: " + bytesArrayLog);
-      //console.log("*** read " + bytesCount + " bytes");
       let responseString: string = new java.lang.String(bytesArray, 0, bytesCount, "UTF-8").toString();
       console.log("*** response string:" + "\'"+responseString+"\'");
       return new ResponseData(bytesCount, bytesArray, responseString, available);

@@ -9,6 +9,7 @@ import { TestViewComponent } from './test-view/test-view.component';
 import { ObdTestComponent } from './obd-test/obd-test.component';
 import { BluetoothConnectionComponent } from './bluetooth-connection/bluetooth-connection.component';
 import { BtTestComponent } from './bt-test/bt-test.component';
+import { ValueBarComponent } from './value-bar/value-bar.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -32,7 +33,8 @@ import { BtTestComponent } from './bt-test/bt-test.component';
         TestViewComponent,
         ObdTestComponent,
         BluetoothConnectionComponent,
-        BtTestComponent
+        BtTestComponent,
+        ValueBarComponent
     ],
     providers: [],
     schemas: [

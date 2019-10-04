@@ -1,0 +1,8 @@
+<GridLayout [columns]="columns" class="progressbar">
+  <StackLayout col="0" row="0" class="progressbar-value" [class]="getColorClass()"></StackLayout>
+</GridLayout>
+<div>
+  <GridLayout rows="auto" [columns]="scaleColumns">
+   <Label class="divisor" *ngFor="let divisor of scaleDivisorsArray; let i = index" row="0" col="{{i}}" text="{{getDivisorValue(i)}}"></Label>
+  </GridLayout>
+</div>

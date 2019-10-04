@@ -1,5 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ObdTestService} from "~/app/obd-test/obd-test.service";
+import * as applicationModule from "application";
+import Toast = android.widget.Toast;
 
 @Component({
   selector: 'ns-obd-test',
@@ -9,8 +11,9 @@ import {ObdTestService} from "~/app/obd-test/obd-test.service";
 })
 export class ObdTestComponent implements OnInit, OnDestroy {
   private revs: string = "0";
-  private value: string;
+  private revValue: number = 0;
   private interval;
+
 
   constructor(private obdTestService: ObdTestService) {
   }
@@ -18,17 +21,23 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //let command = commands.engineRevs;
     console.log("*** on init getRevs()");
-    this.revs = this.obdTestService.getRevs();
+    //this.revs = this.obdTestService.getRevs();
+
   }
 
   getRevs() {
-    console.log("*** obd test getRevs()");
+    //console.log("*** obd test getRevs()");
     this.interval = setInterval(() => {
-      let revs = this.obdTestService.getRevs();
-      if(!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")){
-        this.revs = revs;
-      }
-    }, 700);
+      this.revs = (parseInt(this.revs)+100).toString();
+      // let revs = this.obdTestService.getRevs();
+      //
+      // if(!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")){
+      //  this.revs = revs;
+        this.revValue = parseInt(this.revs.split(" ")[0]);
+        console.log("revs: ", this.revs);
+        console.log("revValue: ", this.revValue);
+      // }
+    }, 270);
   }
 
   stopRevs(){
@@ -38,5 +47,6 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(this.interval);
   }
+
 
 }
