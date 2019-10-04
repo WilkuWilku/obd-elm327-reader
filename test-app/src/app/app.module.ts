@@ -10,6 +10,7 @@ import { ObdTestComponent } from './obd-test/obd-test.component';
 import { BluetoothConnectionComponent } from './bluetooth-connection/bluetooth-connection.component';
 import { BtTestComponent } from './bt-test/bt-test.component';
 import { ValueBarComponent } from './value-bar/value-bar.component';
+import {NativeScriptUIGaugeModule} from "nativescript-ui-gauge/angular";
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -24,7 +25,8 @@ import { ValueBarComponent } from './value-bar/value-bar.component';
     ],
     imports: [
         NativeScriptModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NativeScriptUIGaugeModule
     ],
     declarations: [
         AppComponent,

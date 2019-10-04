@@ -28,15 +28,13 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   getRevs() {
     //console.log("*** obd test getRevs()");
     this.interval = setInterval(() => {
-      this.revs = (parseInt(this.revs)+100).toString();
-      // let revs = this.obdTestService.getRevs();
-      //
-      // if(!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")){
-      //  this.revs = revs;
+      //this.revs = (parseInt(this.revs)+100).toString();
+      let revs = this.obdTestService.getRevs();
+
+      if(!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")){
+       this.revs = revs;
         this.revValue = parseInt(this.revs.split(" ")[0]);
-        console.log("revs: ", this.revs);
-        console.log("revValue: ", this.revValue);
-      // }
+      }
     }, 270);
   }
 
