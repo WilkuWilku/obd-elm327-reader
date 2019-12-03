@@ -2,6 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {ObdTestService} from "~/app/obd-test/obd-test.service";
 import * as applicationModule from "application";
 import Toast = android.widget.Toast;
+import {BluetoothNativeConnectionService} from "~/app/bluetooth-connection/bluetooth-native-connection.service";
 
 @Component({
   selector: 'ns-obd-test',
@@ -15,7 +16,7 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   private interval;
 
 
-  constructor(private obdTestService: ObdTestService) {
+  constructor(private obdTestService: ObdTestService, private bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
   }
 
   ngOnInit() {
@@ -26,6 +27,11 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   }
 
   getRevs() {
+    // TODO: dlaczego NPE
+    if(!this.bluetoothNativeConnectionService.connectedDevice){
+      Toast.makeText(applicationModule.android.foregroundActivity, "OBD Connector is not connected with any device", Toast.LENGTH_LONG).show();
+      return;
+    }
     //console.log("*** obd test getRevs()");
     this.interval = setInterval(() => {
       //this.revs = (parseInt(this.revs)+100).toString();
@@ -35,7 +41,7 @@ export class ObdTestComponent implements OnInit, OnDestroy {
        this.revs = revs;
         this.revValue = parseInt(this.revs.split(" ")[0]);
       }
-    }, 270);
+    }, 350);
   }
 
   stopRevs(){
@@ -45,6 +51,4 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(this.interval);
   }
-
-
 }

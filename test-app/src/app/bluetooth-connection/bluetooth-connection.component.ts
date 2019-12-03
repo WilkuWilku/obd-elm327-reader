@@ -11,7 +11,7 @@ import {ObservableArray} from "data/observable-array";
 @Component({
   selector: 'ns-bluetooth-connection',
   templateUrl: './bluetooth-connection.component.html',
-  styleUrls: ['./bluetooth-connection.component.css'],
+  styleUrls: ['./bluetooth-connection.component.scss'],
   moduleId: module.id,
 })
 export class BluetoothConnectionComponent implements OnInit, OnDestroy{
