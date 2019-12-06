@@ -8,6 +8,7 @@ import OutputStream = java.io.OutputStream;
 import UUID = java.util.UUID;
 import * as applicationModule from "tns-core-modules/application";
 import Toast = android.widget.Toast;
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class BluetoothNativeConnectionService {
 
   isDiscovering(): boolean {
     return this.bluetoothAdapter.isDiscovering();
+  }
+
+  stopSearching() {
+    this.bluetoothAdapter.cancelDiscovery();
   }
 
   searchDevices() {

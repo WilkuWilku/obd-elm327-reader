@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ObdTestService} from "~/app/obd-test/obd-test.service";
 import * as applicationModule from "application";
+import * as dialogs from 'tns-core-modules/ui/dialogs'
 import Toast = android.widget.Toast;
 import {BluetoothNativeConnectionService} from "~/app/bluetooth-connection/bluetooth-native-connection.service";
 
@@ -27,9 +28,12 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   }
 
   getRevs() {
-    // TODO: dlaczego NPE
     if(!this.bluetoothNativeConnectionService.connectedDevice){
-      Toast.makeText(applicationModule.android.foregroundActivity, "OBD Connector is not connected with any device", Toast.LENGTH_LONG).show();
+      dialogs.alert({
+        title: "Błąd",
+        message: "Nie można odczytać danych - nie połączono z urządzeniem",
+        okButtonText: "OK"
+      });
       return;
     }
     //console.log("*** obd test getRevs()");

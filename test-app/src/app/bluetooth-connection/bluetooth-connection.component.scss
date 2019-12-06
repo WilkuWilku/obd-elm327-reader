@@ -4,6 +4,11 @@
         padding: 50px;
         margin-top: 20px;
         width: 55%;
+
+        &.discover-devices-btn {
+            width: 70%;
+            background-color: #b0c7d8;
+        }
     }
 
     ListView {

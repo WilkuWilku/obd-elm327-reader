@@ -1,22 +1,22 @@
 <StackLayout>
-  <Label class="title" text="Command:"></Label>
+  <Label class="title" text="Komenda:"></Label>
   <TextField (textChange)="updateCommand($event)"></TextField>
 
-  <Label class="title" text="Command sent:"></Label>
+  <Label class="title" text="Wysłana komenda:"></Label>
   <Label class="value" text="{{command}}"></Label>
 
-  <Label class="title" text="Response array:"></Label>
+  <Label class="title" text="Bajty odpowiedzi:"></Label>
   <Label class="value" text="{{responseArray}}"></Label>
 
-  <Label class="title" text="Response string"></Label>
+  <Label class="title" text="Odpowiedź jako string"></Label>
   <Label class="value" text="{{responseString}}"></Label>
 
-  <Label text="Available value" class="rev-title text-center"></Label>
+  <Label text="Dostępnych bajtów" class="rev-title text-center"></Label>
   <Label text="{{available}}" class="rev-value"></Label>
 
-  <Label text="Calculated" class="rev-title text-center"></Label>
+  <Label text="Obliczona wartość obrotów silnika" class="rev-title text-center"></Label>
   <Label text="{{value}}" textWrap="true" class="rev-value"></Label>
 
-  <Button (tap)="sendCommand()" text="Send command"></Button>
-  <Button (tap)="readResponse()" text="Read response"></Button>
+  <Button (tap)="sendCommand()" text="Wyślij komendę"></Button>
+  <Button (tap)="readResponse()" text="Odczytaj odpowiedź"></Button>
 </StackLayout>

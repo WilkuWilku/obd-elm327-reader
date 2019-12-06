@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import "nativescript-bluetooth"
 import {BluetoothNativeConnectionService} from "~/app/bluetooth-connection/bluetooth-native-connection.service";
 import BluetoothDevice = android.bluetooth.BluetoothDevice;
@@ -16,13 +16,15 @@ import {ObservableArray} from "data/observable-array";
 })
 export class BluetoothConnectionComponent implements OnInit, OnDestroy{
 
-    private devices: ObservableArray<BluetoothDevice>;
-    private connectedDevice: BluetoothDevice;
-    private selectedDevice: BluetoothDevice;
+  devices: ObservableArray<BluetoothDevice>;
+  connectedDevice: BluetoothDevice;
+  selectedDevice: BluetoothDevice;
+  isDiscovering: boolean = false;
 
-    @ViewChild('devicesListView', {static: false}) devicesListView;
+  @ViewChild('devicesListView', {static: false}) devicesListView;
+  @ViewChild('loader', {static: false}) loader;
 
-    constructor(private bluetoothNativeConnectionService: BluetoothNativeConnectionService){}
+  constructor(public bluetoothNativeConnectionService: BluetoothNativeConnectionService, private zone: NgZone){}
 
   ngOnInit() {
         this.devices = new ObservableArray<BluetoothDevice>([]);
@@ -36,6 +38,9 @@ export class BluetoothConnectionComponent implements OnInit, OnDestroy{
               console.log("*** new device found - ", device.getName());
           }
           if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED == action){
+              this.zone.run(() => {
+                this.isDiscovering = false;
+              });
               Toast.makeText(applicationModule.android.foregroundActivity, "Device discovery finished", Toast.LENGTH_SHORT).show();
               console.log("*** device discovery finished");
           }
@@ -44,14 +49,23 @@ export class BluetoothConnectionComponent implements OnInit, OnDestroy{
       applicationModule.android.registerBroadcastReceiver(BluetoothAdapter.ACTION_DISCOVERY_FINISHED, broadcastReceiverCallback);
   }
 
-  searchDevices(){
+  searchDevices() {
       this.devices = new ObservableArray<BluetoothDevice>([]);
+      this.selectedDevice = undefined;
+      this.isDiscovering = true;
       this.bluetoothNativeConnectionService.searchDevices();
   }
 
+  stopSearching(){
+      this.isDiscovering = false;
+      this.bluetoothNativeConnectionService.stopSearching();
+  }
+
   selectDevice(device: BluetoothDevice){
-        this.selectedDevice = device;
-        console.log("*** device seleced: ", this.selectedDevice);
+    this.zone.run(() => {
+      this.selectedDevice = device;
+    });
+      console.log("*** device seleced: ", this.selectedDevice);
   }
 
   connectToSelectedDevice() {
