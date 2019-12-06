@@ -40,8 +40,8 @@ export class BtTestComponent implements OnInit {
     //console.log("*** BT test read");
     let resp: ResponseData = this.bluetoothNativeConnectionService.readMessage();
     this.responseArray = "";
-    for(let b of resp.bytesArray){
-      this.responseArray += " "+(b ? b.toString() : "x");
+    for (let b of resp.bytesArray) {
+      this.responseArray += " " + (b ? b.toString() : "x");
     }
     this.responseString = resp.responseString;
     this.available = resp.available;

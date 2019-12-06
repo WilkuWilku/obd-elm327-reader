@@ -1,22 +1,22 @@
-export abstract class AbstractCommand{
+export abstract class AbstractCommand {
   commandCode: string;
   responseLength: number;
   calculateValue: Function;
   unitString: string;
 }
 
-class EngineRevsCommand extends AbstractCommand{
-  constructor(){
+class EngineRevsCommand extends AbstractCommand {
+  constructor() {
     super();
     this.commandCode = "010C";
     this.responseLength = 2;
-    this.calculateValue = (bytes => (256*bytes[0]+bytes[1])/4);
+    this.calculateValue = (bytes => (256 * bytes[0] + bytes[1]) / 4);
     this.unitString = "rpm";
   }
 }
 
-class VehicleSpeedCommand extends AbstractCommand{
-  constructor(){
+class VehicleSpeedCommand extends AbstractCommand {
+  constructor() {
     super();
     this.commandCode = "010D";
     this.responseLength = 1;
@@ -25,12 +25,12 @@ class VehicleSpeedCommand extends AbstractCommand{
   }
 }
 
-class ThrottlePositionCommand extends AbstractCommand{
+class ThrottlePositionCommand extends AbstractCommand {
   constructor() {
     super();
     this.commandCode = "0111";
     this.responseLength = 1;
-    this.calculateValue = (bytes => 100*bytes[0]/255);
+    this.calculateValue = (bytes => 100 * bytes[0] / 255);
     this.unitString = "%";
   }
 }

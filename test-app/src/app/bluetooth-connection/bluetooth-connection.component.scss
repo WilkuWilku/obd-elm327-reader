@@ -1,44 +1,44 @@
 /* Add mobile styles for the component here.  */
 :host {
-    Button {
-        padding: 50px;
-        margin-top: 20px;
-        width: 55%;
+  Button {
+    padding: 50px;
+    margin-top: 20px;
+    width: 55%;
 
-        &.discover-devices-btn {
-            width: 70%;
-            background-color: #b0c7d8;
-        }
+    &.discover-devices-btn {
+      width: 70%;
+      background-color: #b0c7d8;
     }
+  }
 
-    ListView {
-        background: #fafafa;
-        height: 50%;
-    }
+  ListView {
+    background: #fafafa;
+    height: 50%;
+  }
 
-    .device-row {
-        background: #e5f1e3;
-        font-size: 18px;
-        width: 100%;
-        vertical-align: center;
-        padding: 25px 50%;
-    }
+  .device-row {
+    background: #e5f1e3;
+    font-size: 18px;
+    width: 100%;
+    vertical-align: center;
+    padding: 25px 50%;
+  }
 
-    .selected {
-        background: #cfdacd;
-    }
+  .selected {
+    background: #cfdacd;
+  }
 
-    .connected {
-        background: #beecba;
-        font-weight: bold;
-    }
+  .connected {
+    background: #beecba;
+    font-weight: bold;
+  }
 
-    .discovering {
-        background: #b0c7d8;
-    }
+  .discovering {
+    background: #b0c7d8;
+  }
 
-    Label {
-        color: black;
-        width: 80%;
-    }
+  Label {
+    color: black;
+    width: 80%;
+  }
 }

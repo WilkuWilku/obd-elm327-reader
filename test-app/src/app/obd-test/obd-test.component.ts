@@ -28,7 +28,7 @@ export class ObdTestComponent implements OnInit, OnDestroy {
   }
 
   getRevs() {
-    if(!this.bluetoothNativeConnectionService.connectedDevice){
+    if (!this.bluetoothNativeConnectionService.connectedDevice) {
       dialogs.alert({
         title: "Błąd",
         message: "Nie można odczytać danych - nie połączono z urządzeniem",
@@ -41,14 +41,14 @@ export class ObdTestComponent implements OnInit, OnDestroy {
       //this.revs = (parseInt(this.revs)+100).toString();
       let revs = this.obdTestService.getRevs();
 
-      if(!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")){
-       this.revs = revs;
+      if (!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")) {
+        this.revs = revs;
         this.revValue = parseInt(this.revs.split(" ")[0]);
       }
     }, 350);
   }
 
-  stopRevs(){
+  stopRevs() {
     clearInterval(this.interval);
   }
 

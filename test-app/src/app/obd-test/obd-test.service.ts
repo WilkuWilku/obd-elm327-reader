@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
-    BluetoothNativeConnectionService,
-    ResponseData
+  BluetoothNativeConnectionService,
+  ResponseData
 } from "~/app/bluetooth-connection/bluetooth-native-connection.service";
 import {commands} from "~/app/commands/commands";
 import {ResponseParserService} from "~/app/bluetooth-connection/response-parser.service";
@@ -10,12 +10,13 @@ import {ResponseParserService} from "~/app/bluetooth-connection/response-parser.
   providedIn: 'root'
 })
 export class ObdTestService {
-  constructor(private bluetoothNativeConnectionService: BluetoothNativeConnectionService, private responseParserService: ResponseParserService) { }
+  constructor(private bluetoothNativeConnectionService: BluetoothNativeConnectionService, private responseParserService: ResponseParserService) {
+  }
 
-    public getRevs() : string {
-        let command = commands.engineRevs;
-        this.bluetoothNativeConnectionService.sendMessage(command.commandCode);
-        let response: ResponseData = this.bluetoothNativeConnectionService.readMessage();
-        return this.responseParserService.parse(response.responseString, command) + " " + command.unitString;
-    }
+  public getRevs(): string {
+    let command = commands.engineRevs;
+    this.bluetoothNativeConnectionService.sendMessage(command.commandCode);
+    let response: ResponseData = this.bluetoothNativeConnectionService.readMessage();
+    return this.responseParserService.parse(response.responseString, command) + " " + command.unitString;
+  }
 }

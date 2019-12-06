@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import Intent = android.content.Intent;
 import BluetoothAdapter = android.bluetooth.BluetoothAdapter;
 import BluetoothDevice = android.bluetooth.BluetoothDevice;
@@ -90,12 +90,12 @@ export class BluetoothNativeConnectionService {
       let available = this.inputStream.available();
       let bytesCount: number = this.inputStream.read(bytesArray);
       let bytesArrayLog: string = "";
-      for(let b of bytesArray){
-        bytesArrayLog += " "+(b ? b.toString() : "x");
+      for (let b of bytesArray) {
+        bytesArrayLog += " " + (b ? b.toString() : "x");
       }
       console.log("*** response data: " + bytesArrayLog);
       let responseString: string = new java.lang.String(bytesArray, 0, bytesCount, "UTF-8").toString();
-      console.log("*** response string:" + "\'"+responseString+"\'");
+      console.log("*** response string:" + "\'" + responseString + "\'");
       return new ResponseData(bytesCount, bytesArray, responseString, available);
     } catch (e) {
       Toast.makeText(applicationModule.android.foregroundActivity, "ERROR: " + e, Toast.LENGTH_LONG).show();
@@ -115,6 +115,7 @@ export class BluetoothNativeConnectionService {
   }
 
 }
+
 export class ResponseData {
   constructor(bytesCount, bytesArray, responseString, available) {
     this.bytesCount = bytesCount;

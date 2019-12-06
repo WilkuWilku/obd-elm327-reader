@@ -3,6 +3,7 @@
 </GridLayout>
 <div>
   <GridLayout rows="auto" [columns]="scaleColumns">
-   <Label class="divisor" *ngFor="let divisor of scaleDivisorsArray; let i = index" row="0" col="{{i}}" text="{{getDivisorValue(i)}}"></Label>
+    <Label class="divisor" *ngFor="let divisor of scaleDivisorsArray; let i = index" row="0" col="{{i}}"
+           text="{{getDivisorValue(i)}}"></Label>
   </GridLayout>
 </div>

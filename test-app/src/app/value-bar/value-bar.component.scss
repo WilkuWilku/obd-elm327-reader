@@ -5,39 +5,40 @@
   border-color: black;
   border-width: 1px;
 }
+
 .progressbar-value {
   background: #337ab7;
 }
 
-.bar-color-normal{
+.bar-color-normal {
   background: #46b78c;
 }
 
-.bar-color-1k{
+.bar-color-1k {
   background-color: #58b763;
 }
 
-.bar-color-2k{
+.bar-color-2k {
   background-color: #86b75a;
 }
 
-.bar-color-3k{
+.bar-color-3k {
   background-color: #a4b75d;
 }
 
-.bar-color-4k{
+.bar-color-4k {
   background-color: #b7a344;
 }
 
-.bar-color-5k{
+.bar-color-5k {
   background-color: #b78a3e;
 }
 
-.bar-color-6k{
+.bar-color-6k {
   background-color: #b7612f;
 }
 
-.divisor{
+.divisor {
   margin-top: 42px;
   font-size: 8px;
   transform: rotate(45deg) translateX(-15px);

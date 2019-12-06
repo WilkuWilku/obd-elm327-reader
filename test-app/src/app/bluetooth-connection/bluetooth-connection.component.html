@@ -1,6 +1,8 @@
 <StackLayout>
-  <Button text="Wyszukaj urządzenia" class="discover-devices-btn" (tap)="searchDevices()" *ngIf="!isDiscovering"></Button>
-  <Button text="Zatrzymaj wyszukiwanie" class="discover-devices-btn" (tap)="stopSearching()" *ngIf="isDiscovering"></Button>
+  <Button text="Wyszukaj urządzenia" class="discover-devices-btn" (tap)="searchDevices()"
+          *ngIf="!isDiscovering"></Button>
+  <Button text="Zatrzymaj wyszukiwanie" class="discover-devices-btn" (tap)="stopSearching()"
+          *ngIf="isDiscovering"></Button>
 
   <ListView #devicesListView [items]="devices">
     <ng-template let-item="item">
