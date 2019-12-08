@@ -1,9 +1,8 @@
 <StackLayout>
-  <Label text="Aktualne obroty" class="rev-label rev-text"></Label>
+  <Label text="Aktualne obroty" class="rev-title rev-text"></Label>
 <!--  <Label text="{{ revs }}" class="rev-value text-center"></Label>-->
 
 <!--  <Label text="Calculated" class="rev-title text-center"></Label>-->
-  <Label text="{{revs}}" textWrap="true" class="rev-value text-center rev-text"></Label>
 
   <ns-value-bar [value]="revValue" maxValue="7000" scaleDivisors="7"></ns-value-bar>
 
@@ -12,8 +11,8 @@
       <RadialScale tkRadialGaugeScales minimum="0" maximum="7000"
                    radius="0.90">
         <ScaleStyle tkRadialScaleStyle majorTicksCount="8"
-                    minorTicksCount="9" lineThickness="1" labelsCount="8"
-                    ticksOffset="0"></ScaleStyle>
+                    minorTicksCount="9" lineThickness="3" labelsCount="8" labelsOffset="0.18"
+                    ticksOffset="0.02"></ScaleStyle>
         <RadialBarIndicator tkRadialScaleIndicators minimum="0"
                             maximum="1000" location="0.97">
           <BarIndicatorStyle tkRadialBarIndicatorStyle
@@ -55,8 +54,9 @@
     </RadRadialGauge>
   </StackLayout>
 
-  <Button text="Start" class="button-start" (tap)="getRevs()"></Button>
-  <Button text="Stop" class="button-stop" (tap)="stopRevs()"></Button>
+  <Label text="{{revs}}" textWrap="true" class="rev-value text-center rev-text"></Label>
+  <Button text="Start" class="stop-start-btn" (tap)="getRevs()" *ngIf="!isIntervalActive"></Button>
+  <Button text="Stop" class="stop-start-btn" (tap)="stopRevs()" *ngIf="isIntervalActive"></Button>
 
 
 

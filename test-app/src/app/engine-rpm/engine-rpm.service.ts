@@ -9,7 +9,7 @@ import {ResponseParserService} from "~/app/bluetooth-connection/response-parser.
 @Injectable({
   providedIn: 'root'
 })
-export class ObdTestService {
+export class EngineRpmService {
   constructor(private bluetoothNativeConnectionService: BluetoothNativeConnectionService, private responseParserService: ResponseParserService) {
   }
 

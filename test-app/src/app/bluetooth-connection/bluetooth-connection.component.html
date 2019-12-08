@@ -14,7 +14,8 @@
   <ActivityIndicator #loader busy="{{isDiscovering}}"></ActivityIndicator>
 
   <Button text="Połącz" (tap)="connectToSelectedDevice()" isEnabled="{{selectedDevice != undefined}}"></Button>
-  <Label text="Połączono z urządzeniem: {{bluetoothNativeConnectionService.connectedDevice?.getName()}}"></Label>
-  <Button text="Odczytaj obroty" [nsRouterLink]="['/obd']"></Button>
-  <Button text="Logi transmisji" [nsRouterLink]="['/bt-test']"></Button>
+  <Label class="connection-info" text="{{bluetoothNativeConnectionService.connectedDevice ?
+         'Połączono z urządzeniem: '+bluetoothNativeConnectionService.connectedDevice :
+         'Nie połączono z żadnym urządzeniem'}}"></Label>
+
 </StackLayout>

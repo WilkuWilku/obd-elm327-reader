@@ -2,7 +2,7 @@
 :host {
   Button {
     padding: 50px;
-    margin-top: 20px;
+    margin: 20px 0 15px 0;
     width: 55%;
 
     &.discover-devices-btn {
@@ -13,24 +13,24 @@
 
   ListView {
     background: #fafafa;
-    height: 50%;
-  }
+    height: 60%;
 
-  .device-row {
-    background: #e5f1e3;
-    font-size: 18px;
-    width: 100%;
-    vertical-align: center;
-    padding: 25px 50%;
-  }
+    .device-row {
+      background: #e5f1e3;
+      font-size: 18px;
+      width: 100%;
+      vertical-align: center;
+      padding: 25px 50%;
+    }
 
-  .selected {
-    background: #cfdacd;
-  }
+    .selected {
+      background: #cfdacd;
+    }
 
-  .connected {
-    background: #beecba;
-    font-weight: bold;
+    .connected {
+      background: #beecba;
+      font-weight: bold;
+    }
   }
 
   .discovering {
@@ -40,5 +40,11 @@
   Label {
     color: black;
     width: 80%;
+
+    &.connection-info {
+      margin-top: 15px;
+      text-align: center;
+      color: #AAAAAA;
+    }
   }
 }

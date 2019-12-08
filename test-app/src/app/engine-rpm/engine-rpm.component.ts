@@ -1,23 +1,24 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ObdTestService} from "~/app/obd-test/obd-test.service";
+import {EngineRpmService} from "~/app/engine-rpm/engine-rpm.service";
 import * as applicationModule from "application";
 import * as dialogs from 'tns-core-modules/ui/dialogs'
 import Toast = android.widget.Toast;
 import {BluetoothNativeConnectionService} from "~/app/bluetooth-connection/bluetooth-native-connection.service";
 
 @Component({
-  selector: 'ns-obd-test',
-  templateUrl: './obd-test.component.html',
-  styleUrls: ['./obd-test.component.scss'],
+  selector: 'ns-engine-rpm',
+  templateUrl: './engine-rpm.component.html',
+  styleUrls: ['./engine-rpm.component.scss'],
   moduleId: module.id,
 })
-export class ObdTestComponent implements OnInit, OnDestroy {
+export class EngineRpmComponent implements OnInit, OnDestroy {
   private revs: string = "0";
   private revValue: number = 0;
   private interval;
+  private isIntervalActive: boolean = false;
 
 
-  constructor(private obdTestService: ObdTestService, private bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
+  constructor(private obdTestService: EngineRpmService, private bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
   }
 
   ngOnInit() {
@@ -46,10 +47,12 @@ export class ObdTestComponent implements OnInit, OnDestroy {
         this.revValue = parseInt(this.revs.split(" ")[0]);
       }
     }, 350);
+    this.isIntervalActive = true;
   }
 
   stopRevs() {
     clearInterval(this.interval);
+    this.isIntervalActive = false;
   }
 
   ngOnDestroy() {

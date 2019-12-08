@@ -5,8 +5,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ItemsComponent } from "./item/items.component";
 import { ItemDetailComponent } from "./item/item-detail.component";
-import { TestViewComponent } from './test-view/test-view.component';
-import { ObdTestComponent } from './obd-test/obd-test.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { EngineRpmComponent } from './engine-rpm/engine-rpm.component';
 import { BluetoothConnectionComponent } from './bluetooth-connection/bluetooth-connection.component';
 import { BtTestComponent } from './bt-test/bt-test.component';
 import { ValueBarComponent } from './value-bar/value-bar.component';
@@ -32,8 +32,8 @@ import {NativeScriptUIGaugeModule} from "nativescript-ui-gauge/angular";
         AppComponent,
         ItemsComponent,
         ItemDetailComponent,
-        TestViewComponent,
-        ObdTestComponent,
+        MainPageComponent,
+        EngineRpmComponent,
         BluetoothConnectionComponent,
         BtTestComponent,
         ValueBarComponent

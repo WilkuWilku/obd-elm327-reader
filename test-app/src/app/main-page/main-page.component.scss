@@ -5,10 +5,19 @@ FlexboxLayout {
   align-items: center;
 
   Label {
-    margin-top: 100px;
-    margin-bottom: 150px;
     text-align: center;
-    font-size: 20em;
+
+    &.title {
+      margin-top: 100px;
+      text-align: center;
+      font-size: 32px;
+    }
+
+    &.connected-device-info {
+      margin-top: 50px;
+      margin-bottom: 100px;
+      font-size: 14px;
+    }
   }
 
   Button {
