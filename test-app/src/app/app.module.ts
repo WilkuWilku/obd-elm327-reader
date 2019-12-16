@@ -11,6 +11,7 @@ import { BluetoothConnectionComponent } from './bluetooth-connection/bluetooth-c
 import { BtTestComponent } from './bt-test/bt-test.component';
 import { ValueBarComponent } from './value-bar/value-bar.component';
 import {NativeScriptUIGaugeModule} from "nativescript-ui-gauge/angular";
+import { BatteryVoltageComponent } from './battery-voltage/battery-voltage.component';
 
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -36,7 +37,8 @@ import {NativeScriptUIGaugeModule} from "nativescript-ui-gauge/angular";
         EngineRpmComponent,
         BluetoothConnectionComponent,
         BtTestComponent,
-        ValueBarComponent
+        ValueBarComponent,
+        BatteryVoltageComponent
     ],
     providers: [],
     schemas: [

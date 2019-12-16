@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractCommand} from "~/app/commands/commands";
+import {AbstractObdCommand} from "~/app/commands/commands";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class ResponseParserService {
   constructor() {
   }
 
-  parse(response: string, commandData: AbstractCommand): string {
+  parse(response: string, commandData: AbstractObdCommand): string {
     let command = commandData.commandCode;
     let calculateValueFunc = commandData.calculateValue;
     // 010C\r41 0C 10 A4 \r\r>

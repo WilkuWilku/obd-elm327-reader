@@ -1,0 +1,36 @@
+:host {
+  .battery-value {
+    text-align: center;
+    margin: 20px 0 20px 0;
+    font-size: 30px;
+  }
+
+  .battery-dead {
+    color: black;
+  }
+
+  .battery-low {
+    color: red;
+  }
+
+  .battery-medium-low {
+    color: #e46c0e;
+  }
+
+  .battery-medium {
+    color: #d8b800;
+  }
+
+  .battery-ok {
+    color: #32d800
+  }
+
+  .battery-high {
+    color: #00d88c;
+  }
+
+  .battery-very-high {
+    color: #00b5d7;
+  }
+
+}

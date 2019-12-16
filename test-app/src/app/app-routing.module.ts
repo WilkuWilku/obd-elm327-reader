@@ -8,6 +8,7 @@ import {MainPageComponent} from "~/app/main-page/main-page.component";
 import {EngineRpmComponent} from "~/app/engine-rpm/engine-rpm.component";
 import {BluetoothConnectionComponent} from "~/app/bluetooth-connection/bluetooth-connection.component";
 import {BtTestComponent} from "~/app/bt-test/bt-test.component";
+import {BatteryVoltageComponent} from "~/app/battery-voltage/battery-voltage.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/test-view", pathMatch: "full" },
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: "item/:id", component: ItemDetailComponent },
     { path: "test-view", component: MainPageComponent},
     { path: "engine-rpm", component: EngineRpmComponent},
+    { path: "battery-voltage", component: BatteryVoltageComponent},
     { path: "bt", component:BluetoothConnectionComponent},
     { path: "bt-test", component: BtTestComponent}
 ];

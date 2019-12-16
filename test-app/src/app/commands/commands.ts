@@ -1,11 +1,15 @@
-export abstract class AbstractCommand {
+export abstract class AbstractObdCommand {
   commandCode: string;
   responseLength: number;
   calculateValue: Function;
   unitString: string;
 }
 
-class EngineRevsCommand extends AbstractCommand {
+export abstract class AbstractElmCommand {
+  commandCode: string;
+}
+
+class EngineRevsCommand extends AbstractObdCommand {
   constructor() {
     super();
     this.commandCode = "010C";
@@ -15,7 +19,7 @@ class EngineRevsCommand extends AbstractCommand {
   }
 }
 
-class VehicleSpeedCommand extends AbstractCommand {
+class VehicleSpeedCommand extends AbstractObdCommand {
   constructor() {
     super();
     this.commandCode = "010D";
@@ -25,7 +29,7 @@ class VehicleSpeedCommand extends AbstractCommand {
   }
 }
 
-class ThrottlePositionCommand extends AbstractCommand {
+class ThrottlePositionCommand extends AbstractObdCommand {
   constructor() {
     super();
     this.commandCode = "0111";
@@ -35,8 +39,17 @@ class ThrottlePositionCommand extends AbstractCommand {
   }
 }
 
+
+class BatteryVoltageCommand extends AbstractElmCommand {
+  constructor() {
+    super();
+    this.commandCode = "AT RV";
+  }
+}
+
 export var commands = {
   engineRevs: new EngineRevsCommand(),
   vehicleSpeed: new VehicleSpeedCommand(),
-  throttle: new ThrottlePositionCommand()
+  throttle: new ThrottlePositionCommand(),
+  batteryVoltage: new BatteryVoltageCommand()
 };
