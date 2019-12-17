@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BluetoothNativeConnectionService} from "~/app/bluetooth-connection/bluetooth-native-connection.service";
 
 @Component({
@@ -7,12 +7,17 @@ import {BluetoothNativeConnectionService} from "~/app/bluetooth-connection/bluet
   styleUrls: ['./main-page.component.scss'],
   moduleId: module.id,
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(public bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+      console.log("*** main page onDestroy");
+      this.bluetoothNativeConnectionService.closeAll();
   }
 
 }

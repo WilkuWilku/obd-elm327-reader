@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractObdCommand} from "~/app/commands/commands";
+import {AbstractElmCommand, AbstractObdCommand} from "~/app/commands/commands";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class ResponseParserService {
   constructor() {
   }
 
-  parse(response: string, commandData: AbstractObdCommand): string {
+  parseObdCommand(response: string, commandData: AbstractObdCommand): string {
     let command = commandData.commandCode;
     let calculateValueFunc = commandData.calculateValue;
     // 010C\r41 0C 10 A4 \r\r>
@@ -43,5 +43,14 @@ export class ResponseParserService {
     let bytes: Array<number> = filteredResponse.split(" ").map(value => parseInt(value, 16));
     console.log("*** PARSER: calculated bytes: " + bytes);
     return calculateValueFunc(bytes);
+  }
+
+  parseElmCommand(response: string, commandData: AbstractElmCommand) {
+      let command = commandData.commandCode;
+      console.log("*** PARSER: start parsing response: C/R \'" + command + "\' / \'" + response + "\'");
+      let filteredResponse: string = response.replace(/>/g, "")
+      filteredResponse = filteredResponse.substring(5);
+      console.log("*** PARSER: response after command echo filter: \'" + filteredResponse + "\'");
+      return filteredResponse;
   }
 }

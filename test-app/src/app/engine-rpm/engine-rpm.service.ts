@@ -17,6 +17,6 @@ export class EngineRpmService {
     let command = commands.engineRevs;
     this.bluetoothNativeConnectionService.sendMessage(command.commandCode);
     let response: ResponseData = this.bluetoothNativeConnectionService.readMessage();
-    return this.responseParserService.parse(response.responseString, command) + " " + command.unitString;
+    return this.responseParserService.parseObdCommand(response.responseString, command) + " " + command.unitString;
   }
 }

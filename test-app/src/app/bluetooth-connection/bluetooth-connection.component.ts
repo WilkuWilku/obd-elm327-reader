@@ -77,7 +77,7 @@ export class BluetoothConnectionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log("*** onDestroy");
-    this.bluetoothNativeConnectionService.closeAll();
+    //this.bluetoothNativeConnectionService.closeAll();
     applicationModule.android.unregisterBroadcastReceiver(BluetoothDevice.ACTION_FOUND);
     applicationModule.android.unregisterBroadcastReceiver(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
   }

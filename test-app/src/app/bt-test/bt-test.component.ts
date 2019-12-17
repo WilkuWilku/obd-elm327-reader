@@ -45,6 +45,6 @@ export class BtTestComponent implements OnInit {
     }
     this.responseString = resp.responseString;
     this.available = resp.available;
-    this.value = this.responseParserService.parse(this.responseString, commands.engineRevs)
+    this.value = this.responseParserService.parseObdCommand(this.responseString, commands.engineRevs)
   }
 }
