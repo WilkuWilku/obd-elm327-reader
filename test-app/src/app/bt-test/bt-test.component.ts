@@ -34,6 +34,10 @@ export class BtTestComponent implements OnInit {
   sendCommand() {
     //console.log("*** BT test send");
     this.bluetoothNativeConnectionService.sendMessage(this.command);
+    let intervalNo = setInterval(() => {
+      this.available = this.bluetoothNativeConnectionService.getAvailableBytes();
+    }, 20);
+    setTimeout(() => clearInterval(intervalNo), 1000);
   }
 
   readResponse() {

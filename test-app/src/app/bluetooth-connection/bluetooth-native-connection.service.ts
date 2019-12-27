@@ -15,7 +15,7 @@ import {Observable} from "rxjs";
 })
 export class BluetoothNativeConnectionService {
   private readonly BT_REQUEST_CODE: number = 1;
-  private readonly BUFFER_SIZE: number = 64;
+  private readonly BUFFER_SIZE: number = 32;
   private bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
   private _connectedDevice: BluetoothDevice;
   private inputStream: InputStream;
@@ -102,6 +102,83 @@ export class BluetoothNativeConnectionService {
     }
   }
 
+  readMessageWhenBytesAvailable(requiredBytesAvailable: number): Observable<ResponseData> {
+    return new Observable<ResponseData>(subscriber => {
+      try {
+        console.log("*** reading message asynchronously");
+        let bytesArray = Array.create("byte", this.BUFFER_SIZE);
+        let available = this.inputStream.available();
+        let responseTime: number = 0;
+        let readingInterval = setInterval(() => {
+          if (this.inputStream.available() >= requiredBytesAvailable) {
+            clearInterval(readingInterval);
+            let bytesCount: number = this.inputStream.read(bytesArray);
+            let bytesArrayLog: string = "";
+            for (let b of bytesArray) {
+              bytesArrayLog += " " + (b ? b.toString() : "x");
+            }
+            console.log("*** response data: " + bytesArrayLog);
+            let responseString: string = new java.lang.String(bytesArray, 0, bytesCount, "UTF-8").toString();
+            console.log("*** response string:" + "\'" + responseString + "\'");
+            subscriber.next(new ResponseData(bytesCount, bytesArray, responseString, available));
+            subscriber.complete();
+            console.log("** response time: ["+responseTime+" ms]")
+          } else {
+            responseTime += 10;
+          }
+        }, 10)
+
+      } catch (e) {
+        Toast.makeText(applicationModule.android.foregroundActivity, "ERROR: " + e, Toast.LENGTH_LONG).show();
+        subscriber.error(e);
+      }
+    });
+  }
+
+  readMessageAsync(): Observable<ResponseData> {
+    const DELAY_IN_MS = 100;
+
+    return new Observable<ResponseData>(subscriber => {
+
+      try {
+        console.log("*** reading message chunk");
+        let bytesArray;
+        let responseTime: number = 0;
+        let available = this.inputStream.available();
+        let bytesCount: number = 0;
+        let bytesArrayLog: string = "";
+        let responseString: string = "";
+
+        let readInterval = setInterval(() => {
+          responseTime += DELAY_IN_MS;
+
+          bytesArray = Array.create("byte", this.BUFFER_SIZE);
+          bytesCount = this.inputStream.read(bytesArray);
+
+          for (let b of bytesArray) {
+            bytesArrayLog += " " + (b ? b.toString() : "x");
+          }
+
+          console.log("*** response data chunk: " + bytesArrayLog);
+          responseString = new java.lang.String(bytesArray, 0, bytesCount, "UTF-8").toString();
+
+          console.log("*** response string chunk:" + "\'" + responseString + "\'");
+          subscriber.next(new ResponseData(bytesCount, bytesArray, responseString, available));
+
+          if(responseString.endsWith(">")) {
+            console.log("all message chunks read - response time: ["+responseTime+" ms]");
+            clearInterval(readInterval);
+            subscriber.complete();
+          }
+        }, DELAY_IN_MS);
+
+      } catch (e) {
+        subscriber.error(e);
+      }
+    })
+
+  }
+
   closeAll() {
     if (this.inputStream != null) {
       this.inputStream.close();
@@ -111,6 +188,22 @@ export class BluetoothNativeConnectionService {
     }
     if (this.bluetoothSocket != null) {
       this.bluetoothSocket.close();
+    }
+  }
+
+  getAvailableBytes() {
+    return this.inputStream.available();
+  }
+
+  skipBytesInInputStream(bytesToSkip) {
+    this.inputStream.skip(bytesToSkip);
+  }
+
+  clearInputStream() {
+    let available: number = this.inputStream.available();
+    if(available > 0) {
+      console.log("InputStream is not empty - clearing buffer");
+      this.skipBytesInInputStream(available);
     }
   }
 

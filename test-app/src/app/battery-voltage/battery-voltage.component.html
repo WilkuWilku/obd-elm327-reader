@@ -1,10 +1,9 @@
 <StackLayout>
-  <Label text="Napięcie akumulatora" class="view-title"></Label>
-  <Label text="{{batteryVoltage}}" class="battery-value"></Label>
+  <Label text="Napięcie akumulatora" class="battery-title"></Label>
+  <Label text="{{batteryVoltage}}" class="battery-value" ></Label>
 
-  <Label class="fas" text="&#xf5df;"></Label>
-  <Label text="&#xf019;" class="far"></Label>
-
-  <Button (tap)="readBatteryVoltage()" text="Odczytaj wartość"></Button>
+  <Label [className]="getColorClass()"  text="&#xf5df;"></Label>
+  <ActivityIndicator #loader busy="{{isLoading}}"></ActivityIndicator>
+  <Button (tap)="readBatteryVoltage()" class="read-btn" text="Odczytaj wartość"></Button>
 
 </StackLayout>

@@ -10,14 +10,14 @@ import * as dialogs from "ui/dialogs";
 })
 export class BatteryVoltageComponent implements OnInit {
 
-  batteryVoltage: string;
-
+  batteryVoltage: string = "---";
+  isLoading: boolean = false;
   constructor(private batteryVoltageService: BatteryVoltageService, private bluetoothNativeConnectionService: BluetoothNativeConnectionService) { }
 
   ngOnInit() {
   }
 
-  readBatteryVoltage(){
+  readBatteryVoltage() {
     if (!this.bluetoothNativeConnectionService.connectedDevice) {
       dialogs.alert({
         title: "Błąd",
@@ -26,7 +26,11 @@ export class BatteryVoltageComponent implements OnInit {
       });
       return;
     }
-    this.batteryVoltage = this.batteryVoltageService.getBatteryVoltage();
+    this.isLoading = true;
+    this.batteryVoltageService.getBatteryVoltageAsync().subscribe(batteryValue => {
+      this.batteryVoltage = batteryValue;
+      this.isLoading = false;
+    });
   }
 
   getColorClass() {
@@ -45,6 +49,6 @@ export class BatteryVoltageComponent implements OnInit {
     } else if (batteryVoltageValue < 14) {
       cls = "battery-high";
     }
-    return cls;
+    return "fas icon "+cls;
   }
 }

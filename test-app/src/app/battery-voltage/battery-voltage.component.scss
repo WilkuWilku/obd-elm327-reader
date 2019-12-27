@@ -2,7 +2,7 @@
   .battery-value {
     text-align: center;
     margin: 20px 0 20px 0;
-    font-size: 30px;
+    font-size: 44px;
   }
 
   .battery-dead {
@@ -22,7 +22,7 @@
   }
 
   .battery-ok {
-    color: #32d800
+    color: #32d800;
   }
 
   .battery-high {
@@ -33,4 +33,42 @@
     color: #00b5d7;
   }
 
+  .far {
+    font-family: "Font Awesome 5 Free", fa-regular-400;
+    font-weight: 400;
+  }
+
+  .fab {
+    font-family: "Font Awesome 5 Brands", fa-brands-400;
+    font-weight: 400;
+  }
+
+  .fas {
+    font-family: "Font Awesome 5 Free", fa-solid-900;
+    font-weight: 900;
+  }
+
+  .battery-title {
+    margin: 50px 0 50px 0;
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .icon {
+    margin: 20px 0 20px 0;
+    font-size: 130px;
+    text-align: center;
+  }
+
+  .read-btn {
+    font-size: 24px;
+    margin: 70px 0 20px 0;
+    border-radius: 200px;
+    width: 50%;
+    height: 250px;
+    background-color: white;
+    border-style: solid;
+    border-color: #2f6fad;
+    border-width: 15px;
+  }
 }

@@ -12,8 +12,13 @@ export class ResponseParserService {
   parseObdCommand(response: string, commandData: AbstractObdCommand): string {
     let command = commandData.commandCode;
     let calculateValueFunc = commandData.calculateValue;
+
     // 010C\r41 0C 10 A4 \r\r>
     console.log("*** PARSER: start parsing response: C/R \'" + command + "\' / \'" + response + "\'");
+    if(!response.endsWith(">")){
+      console.error("PARSER ERROR - response does not end with '>'");
+      return "PARSER ERROR: no '>' ending";
+    }
     let filteredResponse: string = response.replace(/>/g, "")
       .replace("SEARCHING...", "").trim();
     console.log("*** PARSER: response after > CR SEARCHING filter and trim: \'" + filteredResponse + "\'");
@@ -46,11 +51,15 @@ export class ResponseParserService {
   }
 
   parseElmCommand(response: string, commandData: AbstractElmCommand) {
-      let command = commandData.commandCode;
-      console.log("*** PARSER: start parsing response: C/R \'" + command + "\' / \'" + response + "\'");
-      let filteredResponse: string = response.replace(/>/g, "")
-      filteredResponse = filteredResponse.substring(5);
-      console.log("*** PARSER: response after command echo filter: \'" + filteredResponse + "\'");
-      return filteredResponse;
+    let command = commandData.commandCode;
+    console.log("*** PARSER: start parsing response: C/R \'" + command + "\' / \'" + response + "\'");
+    if (!response.endsWith(">")) {
+      console.error("PARSER ERROR - response does not end with '>'");
+      return "PARSER ERROR: no '>' ending";
+    }
+    let filteredResponse: string = response.replace(/>/g, "").replace("\r", "");
+    filteredResponse = filteredResponse.substring(5);
+    console.log("*** PARSER: response after command echo filter: \'" + filteredResponse + "\'");
+    return filteredResponse;
   }
 }
