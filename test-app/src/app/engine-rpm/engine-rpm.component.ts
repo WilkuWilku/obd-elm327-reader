@@ -18,7 +18,7 @@ export class EngineRpmComponent implements OnInit, OnDestroy {
   private isIntervalActive: boolean = false;
 
 
-  constructor(private obdTestService: EngineRpmService, private bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
+  constructor(private engineRpmService: EngineRpmService, private bluetoothNativeConnectionService: BluetoothNativeConnectionService) {
   }
 
   ngOnInit() {
@@ -28,26 +28,39 @@ export class EngineRpmComponent implements OnInit, OnDestroy {
 
   }
 
-  getRevs() {
-    if (!this.bluetoothNativeConnectionService.connectedDevice) {
-      dialogs.alert({
-        title: "Błąd",
-        message: "Nie można odczytać danych - nie połączono z urządzeniem",
-        okButtonText: "OK"
-      });
-      return;
-    }
-    //console.log("*** obd test getRevs()");
-    this.interval = setInterval(() => {
-      //this.revs = (parseInt(this.revs)+100).toString();
-      let revs = this.obdTestService.getRevs();
+  async getRevs() {
 
-      if (!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")) {
-        this.revs = revs;
-        this.revValue = parseInt(this.revs.split(" ")[0]);
-      }
-    }, 350);
+    // if (!this.bluetoothNativeConnectionService.connectedDevice) {
+    //   dialogs.alert({
+    //     title: "Błąd",
+    //     message: "Nie można odczytać danych - nie połączono z urządzeniem",
+    //     okButtonText: "OK"
+    //   });
+    //   return;
+    // }
     this.isIntervalActive = true;
+
+
+    //console.log("*** obd test getRevs()");
+    // this.interval = setInterval(() => {
+    //   //this.revs = (parseInt(this.revs)+100).toString();
+    //   let revs;
+    //   this.engineRpmService.getRevs().subscribe(revsValue => {
+    //     revs = revsValue;
+    //     if (!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")) {
+    //       this.revs = revs;
+    //       this.revValue = parseInt(this.revs.split(" ")[0]);
+    //     }
+    //   });
+    // }, 350);
+    while(this.isIntervalActive) {
+      await this.engineRpmService.getRevsAsyncMock().toPromise().then(revsValue => {
+          if (!revsValue.startsWith("PARSER ERROR") && !revsValue.startsWith("NO")) {
+            this.revs = revsValue;
+            this.revValue = parseInt(this.revs.split(" ")[0]);
+          }
+      })
+    }
   }
 
   stopRevs() {
