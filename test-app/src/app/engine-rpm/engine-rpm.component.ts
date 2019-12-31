@@ -22,43 +22,24 @@ export class EngineRpmComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    //let command = commands.engineRevs;
     console.log("*** on init getRevs()");
-    //this.revs = this.obdTestService.getRevs();
-
   }
 
   async getRevs() {
-
-    // if (!this.bluetoothNativeConnectionService.connectedDevice) {
-    //   dialogs.alert({
-    //     title: "Błąd",
-    //     message: "Nie można odczytać danych - nie połączono z urządzeniem",
-    //     okButtonText: "OK"
-    //   });
-    //   return;
-    // }
+    if (!this.bluetoothNativeConnectionService.connectedDevice) {
+      dialogs.alert({
+        title: "Błąd",
+        message: "Nie można odczytać danych - nie połączono z urządzeniem",
+        okButtonText: "OK"
+      });
+      return;
+    }
     this.isIntervalActive = true;
 
-
-    //console.log("*** obd test getRevs()");
-    // this.interval = setInterval(() => {
-    //   //this.revs = (parseInt(this.revs)+100).toString();
-    //   let revs;
-    //   this.engineRpmService.getRevs().subscribe(revsValue => {
-    //     revs = revsValue;
-    //     if (!revs.startsWith("PARSER ERROR") && !revs.startsWith("NO")) {
-    //       this.revs = revs;
-    //       this.revValue = parseInt(this.revs.split(" ")[0]);
-    //     }
-    //   });
-    // }, 350);
     while(this.isIntervalActive) {
-      await this.engineRpmService.getRevsAsyncMock().toPromise().then(revsValue => {
-          if (!revsValue.startsWith("PARSER ERROR") && !revsValue.startsWith("NO")) {
-            this.revs = revsValue;
-            this.revValue = parseInt(this.revs.split(" ")[0]);
-          }
+      await this.engineRpmService.getRevsAsync().toPromise().then(revsValue => {
+        this.revs = revsValue;
+        this.revValue = parseInt(this.revs.split(" ")[0]);
       })
     }
   }

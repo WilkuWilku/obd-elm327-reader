@@ -1,12 +1,12 @@
 <FlexboxLayout>
-  <Label class="title" text="OBD-II Connector v1.09"></Label>
+  <Label class="title" text="OBD-II Connector v1.16"></Label>
   <Label class="connected-device-info"
          text="{{bluetoothNativeConnectionService.connectedDevice ?
          'Połączono z urządzeniem: '+bluetoothNativeConnectionService.connectedDevice :
          'Nie połączono z żadnym urządzeniem'}}"></Label>
 
-  <Button text="Bluetooth" [nsRouterLink]="['/bt']"></Button>
+  <Button text="Bluetooth" [nsRouterLink]="['/bt']" class="ddd"></Button>
   <Button text="Obroty silnika" [nsRouterLink]="['/engine-rpm']"></Button>
-  <Button text="Napięcie akumulatora" [nsRouterLink]="['/battery-voltage']"></Button>
+  <Button text="Stan akumulatora" [nsRouterLink]="['/battery-voltage']"></Button>
   <Button text="Logi transmisji" [nsRouterLink]="['/bt-test']"></Button>
 </FlexboxLayout>

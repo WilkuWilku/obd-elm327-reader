@@ -6,7 +6,8 @@ import * as dialogs from "ui/dialogs";
 @Component({
   selector: 'ns-battery-voltage',
   templateUrl: './battery-voltage.component.html',
-  styleUrls: ['./battery-voltage.component.scss']
+  styleUrls: ['./battery-voltage.component.scss'],
+  moduleId: module.id
 })
 export class BatteryVoltageComponent implements OnInit {
 

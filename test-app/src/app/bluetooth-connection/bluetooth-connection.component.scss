@@ -1,18 +1,26 @@
 /* Add mobile styles for the component here.  */
 :host {
   Button {
-    padding: 50px;
-    margin: 20px 0 15px 0;
-    width: 55%;
+    padding: 30px;
+    margin: 25px 0 20px 0;
+    width: 50%;
+
+    font-size: 14px;
+    border-radius: 100px;
+    background-color: white;
+    border-style: solid;
+    border-color: #2f6fad;
+    border-width: 10px;
 
     &.discover-devices-btn {
-      width: 70%;
+      margin-top: 50px;
+      width: 60%;
       background-color: #b0c7d8;
     }
   }
 
   ListView {
-    background: #fafafa;
+    background: #f2f2f2;
     height: 60%;
 
     .device-row {
@@ -42,7 +50,7 @@
     width: 80%;
 
     &.connection-info {
-      margin-top: 15px;
+      margin: 30px;
       text-align: center;
       color: #AAAAAA;
     }

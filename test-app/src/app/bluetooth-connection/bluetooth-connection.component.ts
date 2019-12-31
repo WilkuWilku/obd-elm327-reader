@@ -53,8 +53,10 @@ export class BluetoothConnectionComponent implements OnInit, OnDestroy {
   searchDevices() {
     this.devices = new ObservableArray<BluetoothDevice>([]);
     this.selectedDevice = undefined;
-    this.isDiscovering = true;
-    this.bluetoothNativeConnectionService.searchDevices();
+    let isSuccessfullySearching = this.bluetoothNativeConnectionService.searchDevices();
+    if(isSuccessfullySearching) {
+      this.isDiscovering = true;
+    }
   }
 
   stopSearching() {

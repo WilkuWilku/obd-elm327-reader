@@ -9,6 +9,8 @@ import UUID = java.util.UUID;
 import * as applicationModule from "tns-core-modules/application";
 import Toast = android.widget.Toast;
 import {Observable} from "rxjs";
+import * as dialogs from "ui/dialogs";
+import {STREAM_CHUNK_READ_DELAY} from "~/app/utils/constants";
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +31,20 @@ export class BluetoothNativeConnectionService {
   constructor() {
   }
 
-  enableBluetooth() {
+  enableBluetooth(): boolean {
     console.log("*** checking if bluetooth is enabled...");
     if (this.bluetoothAdapter == null || !this.bluetoothAdapter.isEnabled()) {
       console.log("*** bluetooth is disabled. Starting REQUEST_ENABLE activity");
-      let enableBluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-      applicationModule.android.foregroundActivity.startActivityForResult(enableBluetoothIntent, this.BT_REQUEST_CODE);
-    }
+      // dialogs.alert({
+      //   title: "Błąd",
+      //   message: "Aby wyszukać urządzenia, Bluetooth musi być włączone. Spróbuj jeszcze raz...",
+      //   okButtonText: "OK"
+      // }).then(() => {
+        let enableBluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        applicationModule.android.foregroundActivity.startActivityForResult(enableBluetoothIntent, this.BT_REQUEST_CODE);
+      // });
+      return false;
+    } else return true;
   }
 
   isDiscovering(): boolean {
@@ -46,8 +55,11 @@ export class BluetoothNativeConnectionService {
     this.bluetoothAdapter.cancelDiscovery();
   }
 
-  searchDevices() {
-    this.enableBluetooth();
+  searchDevices(): boolean {
+    let isBluetoothEnabled = this.enableBluetooth();
+    if(!isBluetoothEnabled) {
+      return false;
+    }
     if (this.bluetoothAdapter.isDiscovering()) {
       console.log("*** cancelling current discovery");
       this.bluetoothAdapter.cancelDiscovery();
@@ -55,6 +67,7 @@ export class BluetoothNativeConnectionService {
     console.log("*** starting new discovery");
     let status = this.bluetoothAdapter.startDiscovery();
     console.log("*** discovery status: ", status);
+    return true;
   }
 
   connectToDevice(device: BluetoothDevice) {
@@ -136,7 +149,7 @@ export class BluetoothNativeConnectionService {
   }
 
   readMessageAsync(): Observable<ResponseData> {
-    const DELAY_IN_MS = 100;
+    const DELAY_IN_MS = STREAM_CHUNK_READ_DELAY;
 
     return new Observable<ResponseData>(subscriber => {
 

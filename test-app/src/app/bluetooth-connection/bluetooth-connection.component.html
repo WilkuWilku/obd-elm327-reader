@@ -1,21 +1,21 @@
 <StackLayout>
-  <Button text="Wyszukaj urządzenia" class="discover-devices-btn" (tap)="searchDevices()"
-          *ngIf="!isDiscovering"></Button>
-  <Button text="Zatrzymaj wyszukiwanie" class="discover-devices-btn" (tap)="stopSearching()"
-          *ngIf="isDiscovering"></Button>
-
-  <ListView #devicesListView [items]="devices">
+  <Label class="connection-info" text="{{bluetoothNativeConnectionService.connectedDevice ?
+         'Połączono z urządzeniem: '+bluetoothNativeConnectionService.connectedDevice :
+         'Nie połączono z żadnym urządzeniem'}}"></Label>
+    <ListView #devicesListView [items]="devices">
     <ng-template let-item="item">
       <Label (tap)="selectDevice(item)" text="{{item.getAddress()}} [{{item.getName()}}]" class="device-row"
              [ngClass]="{selected: item === selectedDevice, connected: item === connectedDevice}"></Label>
     </ng-template>
 
   </ListView>
+  <Button text="Wyszukaj urządzenia" class="discover-devices-btn" (tap)="searchDevices()"
+          *ngIf="!isDiscovering"></Button>
+  <Button text="Zatrzymaj wyszukiwanie" class="discover-devices-btn" (tap)="stopSearching()"
+          *ngIf="isDiscovering"></Button>
   <ActivityIndicator #loader busy="{{isDiscovering}}"></ActivityIndicator>
 
   <Button text="Połącz" (tap)="connectToSelectedDevice()" isEnabled="{{selectedDevice != undefined}}"></Button>
-  <Label class="connection-info" text="{{bluetoothNativeConnectionService.connectedDevice ?
-         'Połączono z urządzeniem: '+bluetoothNativeConnectionService.connectedDevice :
-         'Nie połączono z żadnym urządzeniem'}}"></Label>
+
 
 </StackLayout>

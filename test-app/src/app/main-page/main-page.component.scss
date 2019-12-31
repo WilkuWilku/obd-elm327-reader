@@ -21,9 +21,17 @@ FlexboxLayout {
   }
 
   Button {
-    padding: 70px;
-    margin: 20px;
-    width: 70%;
+    //padding: 70px;
+    margin: 15vh;
+    width: 75%;
+    height: 200px;
+    font-size: 24px;
+    border-radius: 200px;
+    background-color: white;
+    border-style: solid;
+    border-color: #2f6fad;
+    border-width: 15px;
+    font-weight: 500;
   }
 }
 
