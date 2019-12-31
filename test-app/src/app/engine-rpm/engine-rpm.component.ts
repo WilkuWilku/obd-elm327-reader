@@ -37,7 +37,7 @@ export class EngineRpmComponent implements OnInit, OnDestroy {
     this.isIntervalActive = true;
 
     while(this.isIntervalActive) {
-      await this.engineRpmService.getRevsAsync().toPromise().then(revsValue => {
+      await this.engineRpmService.getRevsAsync().then(revsValue => {
         this.revs = revsValue;
         this.revValue = parseInt(this.revs.split(" ")[0]);
       })

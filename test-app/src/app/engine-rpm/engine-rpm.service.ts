@@ -29,8 +29,8 @@ export class EngineRpmService {
     })
   }
 
-  public getRevsAsync(): Observable<string> {
-    return new Observable<string>(subscriber => {
+  public getRevsAsync(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
       let command = commands.engineRevs;
       let responseString: string = "";
       this.bluetoothNativeConnectionService.sendMessage(command.commandCode);
@@ -38,18 +38,16 @@ export class EngineRpmService {
         console.log("received chunk: "+responseChunk.responseString.replace("\r", "")+", responseString: "+responseString.replace("\r", ""));
         responseString += responseChunk.responseString;
         console.log("response string: "+responseString.replace("\r", ""));
-
       }, error => {
-        subscriber.error(error);
         console.error(error);
+        reject(error);
       }, () => {
         setTimeout(() => {
           console.log("all revs response string: "+responseString.replace("\r", ""));
-          subscriber.next(this.responseParserService.parseObdCommand(responseString, command) + " " + command.unitString);
-          subscriber.complete();
+          resolve(this.responseParserService.parseObdCommand(responseString, command) + " " + command.unitString);
         }, ENGINE_REVS_READ_WRITE_DELAY)
       })
-    })
+    });
   }
 
   public getRevsAsyncMock(): Observable<string> {
